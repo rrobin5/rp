@@ -11,6 +11,8 @@ using rp_api.Service;
 using rp_api.Token;
 using System.Text;
 
+
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -26,9 +28,6 @@ var jwtAudience = Environment.GetEnvironmentVariable("JWT_AUDIENCE")
 var jwtSecretKey = Environment.GetEnvironmentVariable("JWT_SECRET_KEY")
                    ?? builder.Configuration["Jwt:SecretKey"];
 
-Console.WriteLine($"Issuer: {jwtIssuer}");
-Console.WriteLine($"Audience: {jwtAudience}");
-Console.WriteLine($"SecretKey: {jwtSecretKey}");
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
@@ -80,8 +79,6 @@ var connectionString = Environment.GetEnvironmentVariable("MONGO_CONNECTION_STRI
 var databaseName = Environment.GetEnvironmentVariable("MONGO_DATABASE_NAME")
                            ?? builder.Configuration["MongoDb:DatabaseName"];
 
-Console.WriteLine($"Connection String: {connectionString}");
-Console.WriteLine($"Database name: {databaseName}");
 
 builder.Services.Configure<MongoSettings>(options =>
 {
