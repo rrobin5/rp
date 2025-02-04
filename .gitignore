@@ -1,0 +1,50 @@
+# Binarios de compilación
+bin/
+obj/
+out/
+
+# Dependencias de NuGet
+*.nupkg
+project.lock.json
+packages/
+
+# Configuración de usuario en Visual Studio
+.vscode/
+.vs/
+*.user
+*.suo
+*.bak
+*.cache
+*.ldb
+
+# Configuración de Rider (JetBrains)
+.idea/
+*.sln.iml
+
+# Archivos de logs y depuración
+*.log
+*.tlog
+*.pdb
+*.DS_Store
+
+# Configuración de entorno local
+appsettings.json
+appsettings.Development.json
+launchSettings.json
+
+# Certificados de desarrollo
+localhost.pfx
+localhost.crt
+localhost.key
+
+# Docker
+docker-compose.override.yml
+.dockerignore
+
+# Publicaciones y despliegue
+publish/
+wwwroot/
+node_modules/
+npm-debug.log
+yarn-debug.log
+yarn-error.log
