@@ -6,7 +6,15 @@ C:\Users\Adefinir\source\repos\rp_api\rp_api\bin\Debug\net8.0\rp_api.deps.json
 C:\Users\Adefinir\source\repos\rp_api\rp_api\bin\Debug\net8.0\rp_api.runtimeconfig.json
 C:\Users\Adefinir\source\repos\rp_api\rp_api\bin\Debug\net8.0\rp_api.dll
 C:\Users\Adefinir\source\repos\rp_api\rp_api\bin\Debug\net8.0\rp_api.pdb
+C:\Users\Adefinir\source\repos\rp_api\rp_api\bin\Debug\net8.0\AutoMapper.dll
 C:\Users\Adefinir\source\repos\rp_api\rp_api\bin\Debug\net8.0\DnsClient.dll
+C:\Users\Adefinir\source\repos\rp_api\rp_api\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\Adefinir\source\repos\rp_api\rp_api\bin\Debug\net8.0\Microsoft.IdentityModel.Abstractions.dll
+C:\Users\Adefinir\source\repos\rp_api\rp_api\bin\Debug\net8.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\Adefinir\source\repos\rp_api\rp_api\bin\Debug\net8.0\Microsoft.IdentityModel.Logging.dll
+C:\Users\Adefinir\source\repos\rp_api\rp_api\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.dll
+C:\Users\Adefinir\source\repos\rp_api\rp_api\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\Adefinir\source\repos\rp_api\rp_api\bin\Debug\net8.0\Microsoft.IdentityModel.Tokens.dll
 C:\Users\Adefinir\source\repos\rp_api\rp_api\bin\Debug\net8.0\Microsoft.OpenApi.dll
 C:\Users\Adefinir\source\repos\rp_api\rp_api\bin\Debug\net8.0\MongoDB.Bson.dll
 C:\Users\Adefinir\source\repos\rp_api\rp_api\bin\Debug\net8.0\MongoDB.Driver.dll
@@ -15,6 +23,7 @@ C:\Users\Adefinir\source\repos\rp_api\rp_api\bin\Debug\net8.0\Snappier.dll
 C:\Users\Adefinir\source\repos\rp_api\rp_api\bin\Debug\net8.0\Swashbuckle.AspNetCore.Swagger.dll
 C:\Users\Adefinir\source\repos\rp_api\rp_api\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 C:\Users\Adefinir\source\repos\rp_api\rp_api\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\Adefinir\source\repos\rp_api\rp_api\bin\Debug\net8.0\System.IdentityModel.Tokens.Jwt.dll
 C:\Users\Adefinir\source\repos\rp_api\rp_api\bin\Debug\net8.0\ZstdSharp.dll
 C:\Users\Adefinir\source\repos\rp_api\rp_api\obj\Debug\net8.0\rp_api.csproj.AssemblyReference.cache
 C:\Users\Adefinir\source\repos\rp_api\rp_api\obj\Debug\net8.0\rp_api.GeneratedMSBuildEditorConfig.editorconfig
@@ -40,12 +49,3 @@ C:\Users\Adefinir\source\repos\rp_api\rp_api\obj\Debug\net8.0\refint\rp_api.dll
 C:\Users\Adefinir\source\repos\rp_api\rp_api\obj\Debug\net8.0\rp_api.pdb
 C:\Users\Adefinir\source\repos\rp_api\rp_api\obj\Debug\net8.0\rp_api.genruntimeconfig.cache
 C:\Users\Adefinir\source\repos\rp_api\rp_api\obj\Debug\net8.0\ref\rp_api.dll
-C:\Users\Adefinir\source\repos\rp_api\rp_api\bin\Debug\net8.0\AutoMapper.dll
-C:\Users\Adefinir\source\repos\rp_api\rp_api\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
-C:\Users\Adefinir\source\repos\rp_api\rp_api\bin\Debug\net8.0\Microsoft.IdentityModel.Abstractions.dll
-C:\Users\Adefinir\source\repos\rp_api\rp_api\bin\Debug\net8.0\Microsoft.IdentityModel.JsonWebTokens.dll
-C:\Users\Adefinir\source\repos\rp_api\rp_api\bin\Debug\net8.0\Microsoft.IdentityModel.Logging.dll
-C:\Users\Adefinir\source\repos\rp_api\rp_api\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.dll
-C:\Users\Adefinir\source\repos\rp_api\rp_api\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
-C:\Users\Adefinir\source\repos\rp_api\rp_api\bin\Debug\net8.0\Microsoft.IdentityModel.Tokens.dll
-C:\Users\Adefinir\source\repos\rp_api\rp_api\bin\Debug\net8.0\System.IdentityModel.Tokens.Jwt.dll

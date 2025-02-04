@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 using rp_api.DataBase;
 using rp_api.Helper;
@@ -15,6 +16,20 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 // JWT configuration
+
+var jwtIssuer = Environment.GetEnvironmentVariable("JWT_ISSUER")
+                ?? builder.Configuration["Jwt:Issuer"];
+
+var jwtAudience = Environment.GetEnvironmentVariable("JWT_AUDIENCE")
+                  ?? builder.Configuration["Jwt:Audience"];
+
+var jwtSecretKey = Environment.GetEnvironmentVariable("JWT_SECRET_KEY")
+                   ?? builder.Configuration["Jwt:SecretKey"];
+
+Console.WriteLine($"Issuer: {jwtIssuer}");
+Console.WriteLine($"Audience: {jwtAudience}");
+Console.WriteLine($"SecretKey: {jwtSecretKey}");
+
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
@@ -26,11 +41,24 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidateAudience = true,
             ValidateLifetime = true,
             ValidateIssuerSigningKey = true,
-            ValidIssuer = builder.Configuration["Jwt:Issuer"],
-            ValidAudience = builder.Configuration["Jwt:Audience"],
+            ValidIssuer = jwtIssuer,  // JWT_ISSUER desde variables de entorno
+            ValidAudience = jwtAudience,  // JWT_AUDIENCE desde variables de entorno
             IssuerSigningKey = new Microsoft.IdentityModel.Tokens.SymmetricSecurityKey(
-                Encoding.UTF8.GetBytes(builder.Configuration["Jwt:SecretKey"]))
+                Encoding.UTF8.GetBytes(jwtSecretKey))
         };
+        options.Events = new JwtBearerEvents
+        {
+            OnTokenValidated = context =>
+            {
+                var claims = context.Principal.Claims.Select(c => new { c.Type, c.Value });
+                foreach (var claim in claims)
+                {
+                    Console.WriteLine($"{claim.Type}: {claim.Value}");
+                }
+                return Task.CompletedTask;
+            }
+        };
+
     });
 
 builder.Services.AddAuthorization(options =>
@@ -47,13 +75,27 @@ builder.Services.AddSwaggerGen();
 
 // Mongo DB
 
-builder.Services.Configure<MongoSettings>(builder.Configuration.GetSection("MongoDb"));
+var connectionString = Environment.GetEnvironmentVariable("MONGO_CONNECTION_STRING")
+                                ?? builder.Configuration["MongoDb:ConnectionString"];
+var databaseName = Environment.GetEnvironmentVariable("MONGO_DATABASE_NAME")
+                           ?? builder.Configuration["MongoDb:DatabaseName"];
+
+Console.WriteLine($"Connection String: {connectionString}");
+Console.WriteLine($"Database name: {databaseName}");
+
+builder.Services.Configure<MongoSettings>(options =>
+{
+    options.ConnectionString = connectionString;
+    options.DatabaseName = databaseName;
+});
 
 builder.Services.AddSingleton<IMongoClient, MongoClient>(sp =>
 {
-    var settings = builder.Configuration.GetSection("MongoDb").Get<MongoSettings>();
+    var settings = sp.GetRequiredService<IOptions<MongoSettings>>().Value;
     return new MongoClient(settings.ConnectionString);
 });
+
+//Services
 
 builder.Services.AddScoped<IUserRepository, UserMongoRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
@@ -67,10 +109,14 @@ var app = builder.Build();
 
 app.UseMiddleware<ErrorHandlingMiddleware>();
 
+
 app.UseSwagger();
 app.UseSwaggerUI();
 
-app.UseHttpsRedirection();
+
+//app.UseHttpsRedirection();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 
