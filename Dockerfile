@@ -1,24 +1,30 @@
-# Etapa 1: Construcción de la aplicación
-FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+# Usa la imagen base de .NET
+FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS base
 WORKDIR /app
+EXPOSE 80
 
-# Copiar archivos de proyecto y restaurar dependencias
-COPY *.csproj ./
-RUN dotnet restore
+# Usar una imagen SDK para construir
+FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
+WORKDIR /src
 
-# Copiar todo el código y construir la aplicación
-COPY . ./
-RUN dotnet publish -c Release -o /out
+# Copiar el archivo .sln y .csproj
+COPY ["rp_api/rp_api.csproj", "rp_api/"]
 
-# Etapa 2: Imagen final con solo el runtime
-FROM mcr.microsoft.com/dotnet/aspnet:8.0
+# Restaurar las dependencias
+RUN dotnet restore "rp_api/rp_api.csproj"
+
+# Copiar el resto del código fuente
+COPY . .
+
+# Construir el proyecto
+WORKDIR "/src/rp_api"
+RUN dotnet build "rp_api.csproj" -c Release -o /app/build
+
+# Publicar la aplicación
+RUN dotnet publish "rp_api.csproj" -c Release -o /app/publish
+
+# Usar la imagen base para ejecutar la aplicación
+FROM base AS final
 WORKDIR /app
-
-# Copiar los archivos compilados desde la etapa anterior
-COPY --from=build /out ./
-
-# Especificar el puerto en el que corre la app
-EXPOSE 8080
-
-# Comando para ejecutar la aplicación
-CMD ["dotnet", "rp_api.dll"]
+COPY --from=build /app/publish .
+ENTRYPOINT ["dotnet", "rp_api.dll"]
