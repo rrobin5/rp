@@ -9,8 +9,10 @@ using rp_api.Middleware;
 using rp_api.Repository;
 using rp_api.Service;
 using rp_api.Token;
+using System.Net;
 using System.Text;
 
+System.Net.ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
 
 
 var builder = WebApplication.CreateBuilder(args);
