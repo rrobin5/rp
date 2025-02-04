@@ -1,10 +1,10 @@
-# Usa la imagen base de .NET
-FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS base
+# Usa la imagen base de .NET 8.0
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 WORKDIR /app
 EXPOSE 80
 
-# Usar una imagen SDK para construir
-FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
+# Usar una imagen SDK de .NET 8.0 para construir
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 
 # Copiar el archivo .sln y .csproj
