@@ -1,0 +1,12 @@
+{
+  "Version": 1,
+  "Hash": "iCp7x/GnPi6iyISDol56op90qYlOLyk+J0gUGjTTv9Y=",
+  "Source": "rp_api",
+  "BasePath": "_content/rp_api",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": [],
+  "Endpoints": []
+}
