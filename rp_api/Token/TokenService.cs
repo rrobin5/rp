@@ -24,12 +24,21 @@ namespace rp_api.Token
             new Claim("id", usuario.Id.ToString())
         };
 
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:SecretKey"]));
+            var jwtIssuer = Environment.GetEnvironmentVariable("JWT_ISSUER")
+                ?? _configuration["Jwt:Issuer"];
+
+            var jwtAudience = Environment.GetEnvironmentVariable("JWT_AUDIENCE")
+                              ?? _configuration["Jwt:Audience"];
+
+            var jwtSecretKey = Environment.GetEnvironmentVariable("JWT_SECRET_KEY")
+                               ?? _configuration["Jwt:SecretKey"];
+
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSecretKey));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
             var token = new JwtSecurityToken(
-                issuer: _configuration["Jwt:Issuer"],
-                audience: _configuration["Jwt:Audience"],
+                issuer: jwtIssuer,
+                audience: jwtAudience,
                 claims: claims,
                 expires: DateTime.Now.AddDays(90),
                 signingCredentials: creds

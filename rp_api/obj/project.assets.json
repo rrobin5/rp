@@ -1490,11 +1490,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Adefinir\\source\\repos\\rp_api\\rp_api\\rp_api.csproj",
+      "projectUniqueName": "C:\\Users\\Adefinir\\Documents\\Rp\\rp\\rp_api\\rp_api.csproj",
       "projectName": "rp_api",
-      "projectPath": "C:\\Users\\Adefinir\\source\\repos\\rp_api\\rp_api\\rp_api.csproj",
+      "projectPath": "C:\\Users\\Adefinir\\Documents\\Rp\\rp\\rp_api\\rp_api.csproj",
       "packagesPath": "C:\\Users\\Adefinir\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Adefinir\\source\\repos\\rp_api\\rp_api\\obj\\",
+      "outputPath": "C:\\Users\\Adefinir\\Documents\\Rp\\rp\\rp_api\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
