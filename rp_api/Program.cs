@@ -116,6 +116,8 @@ builder.Services.AddSingleton<IAuthorizationHandler, UserIdClaimHandler>();
 
 var app = builder.Build();
 
+app.UseCors("AllowAll");
+
 app.UseMiddleware<ErrorHandlingMiddleware>();
 
 
