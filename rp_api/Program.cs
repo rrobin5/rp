@@ -17,6 +17,18 @@ System.Net.ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// CORS
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", policy => // modificar al desplegar el front
+    {
+        policy.AllowAnyOrigin()
+              .AllowAnyMethod()
+              .AllowAnyHeader();
+    });
+});
+
 // JWT configuration
 
 var jwtIssuer = Environment.GetEnvironmentVariable("JWT_ISSUER")
@@ -71,18 +83,6 @@ builder.Services.AddAutoMapper(typeof(MappingProfile));
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
-// CORS
-
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("AllowAll", policy => // modificar al desplegar el front
-    {
-        policy.AllowAnyOrigin()
-              .AllowAnyMethod()
-              .AllowAnyHeader();
-    });
-});
 
 // Mongo DB
 
