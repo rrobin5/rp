@@ -17,8 +17,6 @@ System.Net.ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
 // JWT configuration
 
 var jwtIssuer = Environment.GetEnvironmentVariable("JWT_ISSUER")
@@ -42,8 +40,8 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidateAudience = true,
             ValidateLifetime = true,
             ValidateIssuerSigningKey = true,
-            ValidIssuer = jwtIssuer,  // JWT_ISSUER desde variables de entorno
-            ValidAudience = jwtAudience,  // JWT_AUDIENCE desde variables de entorno
+            ValidIssuer = jwtIssuer,  
+            ValidAudience = jwtAudience,  
             IssuerSigningKey = new Microsoft.IdentityModel.Tokens.SymmetricSecurityKey(
                 Encoding.UTF8.GetBytes(jwtSecretKey))
         };
@@ -73,6 +71,18 @@ builder.Services.AddAutoMapper(typeof(MappingProfile));
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+// CORS
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", policy => // modificar al desplegar el front
+    {
+        policy.AllowAnyOrigin()
+              .AllowAnyMethod()
+              .AllowAnyHeader();
+    });
+});
 
 // Mongo DB
 
