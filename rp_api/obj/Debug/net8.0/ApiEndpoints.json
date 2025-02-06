@@ -69,6 +69,27 @@
   },
   {
     "ContainingType": "rp_api.Controllers.RoleController",
+    "Method": "SaveAllRoles",
+    "RelativePath": "api/Role/{userId}/all",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "allRoleRequest",
+        "Type": "System.Collections.Generic.List\u00601[[rp_api.DTO.AllRolesRequest, rp_api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "IsRequired": true
+      },
+      {
+        "Name": "userId",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "rp_api.Controllers.RoleController",
     "Method": "GetNotRepliedRolesByUserId",
     "RelativePath": "api/Role/{userId}/not-replied-roles",
     "HttpMethod": "GET",

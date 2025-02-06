@@ -22,13 +22,33 @@ namespace rp_api.Service
         {
             Role role = _mapper.Map<Role>(newRole);
             role.Status = 0;
-            role.TimeStamp = DateTime.Now.ToString("o");
+            role.TimeStamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
             role.Id = ObjectId.GenerateNewId();
 
             ObjectId objectId = ObjectId.Parse(userId);
 
             return await _roleRepository.AddRoleAsync(objectId, role);
 
+        }
+
+        public async Task<bool> SaveAllRoles(string userId, List<AllRolesRequest> allRoles)
+        {
+
+            ObjectId objectUserId = ObjectId.Parse(userId);
+
+            foreach (AllRolesRequest roleRequest in allRoles)
+            {
+                Role role = _mapper.Map<Role>(roleRequest);
+                bool success = await _roleRepository.UpdateRoleAsync(userId, roleRequest.Id, role);
+                if (!success)
+                {
+                    success = await _roleRepository.AddRoleAsync(objectUserId, role);
+                    if (!success) return false;
+                }
+
+            }
+
+            return true;
         }
 
         public async Task<List<RoleResponse>> GetNotRepliedRolesByUserId(string userId)
@@ -40,7 +60,7 @@ namespace rp_api.Service
             var roles = await _roleRepository.GetNotRepliedRolesByUserIdAsync(userObjectId);
 
             roles = roles
-                .OrderBy(r => DateTime.Parse(r.TimeStamp))
+                .OrderBy(r => r.TimeStamp)
                 .ToList();
 
             return _mapper.Map<List<RoleResponse>>(roles);
@@ -56,14 +76,14 @@ namespace rp_api.Service
             var roles = await _roleRepository.GetRepliedRolesByUserIdAsync(userObjectId);
 
             roles = roles
-                .OrderByDescending(r => DateTime.Parse(r.TimeStamp))
+                .OrderByDescending(r => r.TimeStamp)
                 .ToList();
 
             return _mapper.Map<List<RoleResponse>>(roles);
 
         }
 
-        public async Task<(List<RoleResponse> notRepliedRoles, List<RoleResponse> repliedRoles)> GetAllRolesByUserId(string userId)
+        public async Task<List<RoleResponse>> GetAllRolesByUserId(string userId)
         {
             if (!ObjectId.TryParse(userId, out var userObjectId))
             {
@@ -72,20 +92,9 @@ namespace rp_api.Service
 
             var roles = await _roleRepository.GetAllRolesByUserIdAsync(userObjectId);
 
-            var notReplied = roles
-                .Where(r => r.Status == RoleStatus.NotReplied)
-                .OrderBy(r => DateTime.Parse(r.TimeStamp))
-                .ToList();
+            var roleResponse = _mapper.Map<List<RoleResponse>>(roles);
 
-            var replied = roles
-                .Where(r => r.Status == RoleStatus.Replied)
-                .OrderByDescending(r => DateTime.Parse(r.TimeStamp))
-                .ToList();
-
-            var notRepliedRoles = _mapper.Map<List<RoleResponse>>(notReplied);
-            var repliedRoles = _mapper.Map<List<RoleResponse>>(replied);
-
-            return (notRepliedRoles, repliedRoles);
+            return roleResponse;
         }
 
         public async Task<bool> UpdateRole(RoleUpdateRequest roleUpdateRequest, string roleId, string userId)

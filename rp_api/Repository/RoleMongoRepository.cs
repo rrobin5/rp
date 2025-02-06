@@ -51,12 +51,13 @@ namespace rp_api.Repository
                 Builders<User>.Update.Set("Roles.$.Characters", updatedRole.Characters),
                 Builders<User>.Update.Set("Roles.$.Partner", updatedRole.Partner),
                 Builders<User>.Update.Set("Roles.$.Link", updatedRole.Link),
+                Builders<User>.Update.Set("Roles.$.Status", updatedRole.Status),
                 Builders<User>.Update.Set("Roles.$.TimeStamp", updatedRole.TimeStamp)
             );
 
             var updateResult = await _roles.UpdateOneAsync(filter, update);
 
-            return updateResult.ModifiedCount > 0;
+            return updateResult.MatchedCount > 0;
         }
 
         public async Task<List<Role>> GetNotRepliedRolesByUserIdAsync(ObjectId userId)
@@ -133,7 +134,7 @@ namespace rp_api.Repository
 
             var update = Builders<User>.Update.Combine(
                 Builders<User>.Update.Set("Roles.$.Status", newStatus),
-                Builders<User>.Update.Set("Roles.$.TimeStamp", DateTime.Now.ToString("o"))
+                Builders<User>.Update.Set("Roles.$.TimeStamp", DateTimeOffset.UtcNow.ToUnixTimeMilliseconds())
                 );
 
             var updateResult = await _roles.UpdateOneAsync(filter, update);

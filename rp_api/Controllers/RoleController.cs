@@ -24,13 +24,9 @@ namespace rp_api.Controllers
             var userIdClaim = User.FindFirst("id")?.Value;
             if (userIdClaim != userId) throw new UnauthorizedAccessException();
 
-            var (notReplied, replied) = await _roleService.GetAllRolesByUserId(userId);
+            List<RoleResponse> roles = await _roleService.GetAllRolesByUserId(userId);
 
-            return Ok(new
-            {
-                NotReplied = notReplied,
-                Replied = replied
-            });
+            return Ok(roles);
 
         }
 
@@ -71,6 +67,20 @@ namespace rp_api.Controllers
 
             if (success) return Ok("Rol added successfully.");
              return NotFound("User not found or failed to add rol.");
+        }
+
+
+        [Authorize(Policy = "UserIdPolicy")]
+        [HttpPost("{userId}/all")]
+        public async Task<IActionResult> SaveAllRoles([FromBody] List<AllRolesRequest> allRoleRequest, string userId)
+        {
+            var userIdClaim = User.FindFirst("id")?.Value;
+            if (userIdClaim != userId) throw new UnauthorizedAccessException();
+
+            bool success = await _roleService.SaveAllRoles(userId, allRoleRequest);
+
+            if (success) return Ok("Roles added successfully.");
+            return NotFound("User not found or failed to add rol.");
         }
 
         [Authorize(Policy = "UserIdPolicy")]

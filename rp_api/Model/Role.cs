@@ -12,9 +12,7 @@ namespace rp_api.Model
         public string Partner { get; set; }
         public string Link { get; set; }
         public RoleStatus Status { get; set; }
-
-        [BsonRepresentation(BsonType.String)]
-        public string TimeStamp {  get; set; } 
+        public long TimeStamp {  get; set; } 
 
     }
 }

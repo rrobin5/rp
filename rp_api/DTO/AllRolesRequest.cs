@@ -2,7 +2,7 @@
 
 namespace rp_api.DTO
 {
-    public class RoleResponse
+    public class AllRolesRequest
     {
         public string Id { get; set; }
         public string Title { get; set; }

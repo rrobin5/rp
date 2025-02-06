@@ -13,6 +13,8 @@ namespace rp_api.Mapper
             CreateMap<RoleRequest, Role>();
             CreateMap<Role, RoleResponse>();
             CreateMap<RoleUpdateRequest, Role>();
+            CreateMap<AllRolesRequest, Role>();
+
         }
     }
 }
