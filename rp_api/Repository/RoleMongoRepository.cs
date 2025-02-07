@@ -154,7 +154,7 @@ namespace rp_api.Repository
 
             var updateResult = await _roles.UpdateOneAsync(filter, update);
 
-            return updateResult.ModifiedCount > 0;
+            return updateResult.MatchedCount > 0;
         }
 
     }
