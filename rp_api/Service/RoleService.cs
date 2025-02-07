@@ -35,20 +35,21 @@ namespace rp_api.Service
         {
 
             ObjectId objectUserId = ObjectId.Parse(userId);
+            List<Role> roles = new List<Role>();
 
             foreach (AllRolesRequest roleRequest in allRoles)
             {
-                Role role = _mapper.Map<Role>(roleRequest);
-                bool success = await _roleRepository.UpdateRoleAsync(userId, roleRequest.Id, role);
-                if (!success)
+                if (string.IsNullOrEmpty(roleRequest.Id))
                 {
-                    success = await _roleRepository.AddRoleAsync(objectUserId, role);
-                    if (!success) return false;
+                    roleRequest.Id = ObjectId.GenerateNewId().ToString();
                 }
+                Role role = _mapper.Map<Role>(roleRequest);
+
+                roles.Add(role);
 
             }
 
-            return true;
+            return await _roleRepository.ReplaceAllRolesAsync(userId, roles);
         }
 
         public async Task<List<RoleResponse>> GetNotRepliedRolesByUserId(string userId)

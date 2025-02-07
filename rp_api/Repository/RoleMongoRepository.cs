@@ -141,5 +141,21 @@ namespace rp_api.Repository
 
             return updateResult.ModifiedCount > 0;
         }
+
+        public async Task<bool> ReplaceAllRolesAsync(string userId, List<Role> newRoles)
+        {
+            if (!ObjectId.TryParse(userId, out var usuarioObjectId))
+            {
+                return false;
+            }
+
+            var filter = Builders<User>.Filter.Eq(u => u.Id, usuarioObjectId);
+            var update = Builders<User>.Update.Set(u => u.Roles, newRoles);
+
+            var updateResult = await _roles.UpdateOneAsync(filter, update);
+
+            return updateResult.ModifiedCount > 0;
+        }
+
     }
 }
