@@ -1,8 +1,12 @@
-﻿namespace rp_api.Model
+﻿using MongoDB.Bson.Serialization.Attributes;
+using MongoDB.Bson;
+
+namespace rp_api.Model
 {
     public class LoveMessage
     {
-        public int Id { get; set; }
+        [BsonId]
+        public ObjectId Id { get; set; }
         public string Message { get; set; }
     }
 }

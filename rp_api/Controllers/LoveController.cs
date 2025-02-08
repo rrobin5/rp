@@ -26,7 +26,7 @@ namespace rp_api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllMessages()
         {
-            List<LoveMessage> messages = await _loveService.GetAllMessages();
+            List<LoveMessageResponse> messages = await _loveService.GetAllMessages();
             return Ok(messages);
         }
     }

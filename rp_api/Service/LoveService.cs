@@ -1,26 +1,33 @@
 ﻿
+using AutoMapper;
+using MongoDB.Bson;
+using rp_api.DTO;
 using rp_api.Model;
 using rp_api.Repository;
+using System.Data;
 
 namespace rp_api.Service
 {
     public class LoveService : ILoveService
     {
         private readonly ILoveRepository _loveRepository;
-
-        public LoveService(ILoveRepository loveRepository)
+        private readonly IMapper _mapper;
+        public LoveService(ILoveRepository loveRepository, IMapper mapper)
         {
             _loveRepository = loveRepository;
+            _mapper = mapper;
         }
 
         public async Task CreateMessage(LoveMessage message)
         {
+            message.Id = ObjectId.GenerateNewId();
             await _loveRepository.CreateMessageAsync(message);
         }
 
-        public async Task<List<LoveMessage>> GetAllMessages()
+        public async Task<List<LoveMessageResponse>> GetAllMessages()
         {
-            return await _loveRepository.GetAllMessagesAsync();
+            List<LoveMessage> messages = await _loveRepository.GetAllMessagesAsync();
+            return _mapper.Map<List<LoveMessageResponse>>(messages);
         }
     }
 }
