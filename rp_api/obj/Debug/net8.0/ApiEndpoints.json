@@ -1,5 +1,47 @@
 [
   {
+    "ContainingType": "rp_api.Controllers.LoveController",
+    "Method": "CreateLoveMessage",
+    "RelativePath": "api/Love",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "message",
+        "Type": "rp_api.Model.LoveMessage",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "rp_api.Controllers.LoveController",
+    "Method": "GetAllMessages",
+    "RelativePath": "api/Love",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "rp_api.Controllers.ReviewController",
+    "Method": "Review",
+    "RelativePath": "api/Review",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "reviewRequest",
+        "Type": "rp_api.DTO.ReviewRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "rp_api.Controllers.RoleController",
     "Method": "AddRole",
     "RelativePath": "api/Role/{userId}",

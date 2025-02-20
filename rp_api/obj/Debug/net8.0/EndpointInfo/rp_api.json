@@ -5,6 +5,78 @@
     "version": "1.0"
   },
   "paths": {
+    "/api/Love": {
+      "post": {
+        "tags": [
+          "Love"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoveMessage"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoveMessage"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoveMessage"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Love"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Review": {
+      "post": {
+        "tags": [
+          "Review"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReviewRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReviewRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReviewRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
     "/api/Role/{userId}/roles": {
       "get": {
         "tags": [
@@ -381,6 +453,49 @@
           "password": {
             "minLength": 1,
             "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "LoveMessage": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "$ref": "#/components/schemas/ObjectId"
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ObjectId": {
+        "type": "object",
+        "properties": {
+          "timestamp": {
+            "type": "integer",
+            "format": "int32",
+            "readOnly": true
+          },
+          "creationTime": {
+            "type": "string",
+            "format": "date-time",
+            "readOnly": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ReviewRequest": {
+        "type": "object",
+        "properties": {
+          "userId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
           }
         },
         "additionalProperties": false

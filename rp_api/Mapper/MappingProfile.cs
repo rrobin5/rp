@@ -15,6 +15,7 @@ namespace rp_api.Mapper
             CreateMap<RoleUpdateRequest, Role>();
             CreateMap<AllRolesRequest, Role>();
             CreateMap<LoveMessage,  LoveMessageResponse>();
+            CreateMap<ReviewRequest, Review>();
 
         }
     }

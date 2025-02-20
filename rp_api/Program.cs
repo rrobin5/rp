@@ -106,6 +106,8 @@ builder.Services.AddSingleton<IMongoClient, MongoClient>(sp =>
 
 //Services
 
+builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
+builder.Services.AddScoped<IReviewService, ReviewService>();
 builder.Services.AddScoped<ILoveService, LoveService>();
 builder.Services.AddScoped<ILoveRepository, LoveMongoRepository>();
 builder.Services.AddScoped<IUserRepository, UserMongoRepository>();
