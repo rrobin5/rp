@@ -490,8 +490,8 @@
         "type": "object",
         "properties": {
           "userId": {
-            "type": "integer",
-            "format": "int32"
+            "type": "string",
+            "nullable": true
           },
           "message": {
             "type": "string",
