@@ -27,7 +27,7 @@
   },
   {
     "ContainingType": "rp_api.Controllers.ReviewController",
-    "Method": "Review",
+    "Method": "CreateReview",
     "RelativePath": "api/Review",
     "HttpMethod": "POST",
     "IsController": true,
@@ -39,6 +39,16 @@
         "IsRequired": true
       }
     ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "rp_api.Controllers.ReviewController",
+    "Method": "GetAllReviews",
+    "RelativePath": "api/Review",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
     "ReturnTypes": []
   },
   {

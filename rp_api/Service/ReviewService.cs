@@ -21,5 +21,11 @@ namespace rp_api.Service
             Review newReview = _mapper.Map<Review>(reviewRequest);
             await _reviewRepository.CreateReview(newReview);
         }
+
+        public async Task<List<ReviewResponse>> GetAllReviews()
+        {
+            List<Review> reviews = await _reviewRepository.GetAllReviews();
+            return _mapper.Map<List<ReviewResponse>>(reviews);
+        }
     }
 }

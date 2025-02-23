@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 using rp_api.DataBase;
+using rp_api.DTO;
 using rp_api.Model;
 
 namespace rp_api.Repository
@@ -17,6 +18,11 @@ namespace rp_api.Repository
         public async Task CreateReview(Review review)
         {
             await _reviews.InsertOneAsync(review);
+        }
+
+        public async Task<List<Review>> GetAllReviews()
+        {
+            return await _reviews.Find(_ => true).ToListAsync();
         }
     }
 }

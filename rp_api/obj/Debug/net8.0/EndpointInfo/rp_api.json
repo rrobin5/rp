@@ -75,6 +75,16 @@
             "description": "Success"
           }
         }
+      },
+      "get": {
+        "tags": [
+          "Review"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
       }
     },
     "/api/Role/{userId}/roles": {

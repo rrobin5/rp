@@ -16,10 +16,17 @@ namespace rp_api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Review(ReviewRequest reviewRequest)
+        public async Task<IActionResult> CreateReview(ReviewRequest reviewRequest)
         {
             await _reviewService.CreateReview(reviewRequest);
             return Ok("Message created successfully.");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAllReviews()
+        {
+            List<ReviewResponse> reviews = await _reviewService.GetAllReviews();
+            return Ok(reviews);
         }
     }
 }
