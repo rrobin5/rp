@@ -10,5 +10,6 @@ namespace rp_api.Model
         public string Username { get; set; }
         public string Password { get; set; }
         public List<Role> Roles { get; set; } = new List<Role>();
+        public long LastSave {  get; set; }
     }
 }

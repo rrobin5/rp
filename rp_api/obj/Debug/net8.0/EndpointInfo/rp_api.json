@@ -583,6 +583,10 @@
           "password": {
             "minLength": 1,
             "type": "string"
+          },
+          "lastSave": {
+            "type": "integer",
+            "format": "int64"
           }
         },
         "additionalProperties": false

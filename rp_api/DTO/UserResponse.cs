@@ -7,5 +7,6 @@ namespace rp_api.DTO
         public string Id { get; set; }
         public string Username { get; set; }
         public List<Role> Roles { get; set; } = new List<Role>();
+        public long LastSave { get; set; }
     }
 }

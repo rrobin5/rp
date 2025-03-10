@@ -49,6 +49,7 @@ namespace rp_api.Service
             {
                 Token = token,
                 UserId = user.Id.ToString(),
+                LastSave = user.LastSave
             };
 
             return loginResponse;

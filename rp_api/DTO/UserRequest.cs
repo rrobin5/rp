@@ -9,5 +9,6 @@ namespace rp_api.DTO
 
         [Required(ErrorMessage = "Password is required.")]
         public string Password { get; set; }
+        public long LastSave {  get; set; }
     }
 }
