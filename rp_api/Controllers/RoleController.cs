@@ -57,6 +57,21 @@ namespace rp_api.Controllers
         }
 
         [Authorize(Policy = "UserIdPolicy")]
+        [HttpGet("{userId}/last-saved")]
+        public async Task<IActionResult> GetLastSaved(string userId)
+        {
+            var userIdClaim = User.FindFirst("id")?.Value;
+            if (userIdClaim != userId) throw new UnauthorizedAccessException();
+
+            long lastSaved = await _roleService.GetLastSaved(userId);
+
+            LastSavedResponse lastSavedResponse = new LastSavedResponse { LastSaved = lastSaved };
+
+            return Ok(lastSavedResponse);
+
+        }
+
+        [Authorize(Policy = "UserIdPolicy")]
         [HttpPost("{userId}")]
         public async Task<IActionResult> AddRole([FromBody] RoleRequest roleRequest, string userId)
         {
@@ -72,14 +87,16 @@ namespace rp_api.Controllers
 
         [Authorize(Policy = "UserIdPolicy")]
         [HttpPost("{userId}/all")]
-        public async Task<IActionResult> SaveAllRoles([FromBody] List<AllRolesRequest> allRoleRequest, string userId)
+        public async Task<IActionResult> SaveAllRoles([FromBody] SaveAllRequest saveAllRequest, string userId)
         {
             var userIdClaim = User.FindFirst("id")?.Value;
             if (userIdClaim != userId) throw new UnauthorizedAccessException();
 
-            bool success = await _roleService.SaveAllRoles(userId, allRoleRequest);
+            bool saveSuccess = await _roleService.SaveAllRoles(userId, saveAllRequest.Roles);
+            bool lastSaveSuccess = await _roleService.UpdateLastSave(userId, saveAllRequest.LastSaved);
 
-            if (success) return Ok("Roles added successfully.");
+
+            if (saveSuccess) return Ok("Roles added successfully.");
             return NotFound("User not found or failed to add rol.");
         }
 

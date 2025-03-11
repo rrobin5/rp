@@ -31,13 +31,13 @@ namespace rp_api.Service
 
         }
 
-        public async Task<bool> SaveAllRoles(string userId, List<AllRolesRequest> allRoles)
+        public async Task<bool> SaveAllRoles(string userId, List<CompleteRoleRequest> allRoles)
         {
 
             ObjectId objectUserId = ObjectId.Parse(userId);
             List<Role> roles = new List<Role>();
 
-            foreach (AllRolesRequest roleRequest in allRoles)
+            foreach (CompleteRoleRequest roleRequest in allRoles)
             {
                 if (string.IsNullOrEmpty(roleRequest.Id))
                 {
@@ -120,5 +120,23 @@ namespace rp_api.Service
             return await _roleRepository.ToggleRoleStatusAsync(userObjectId, roleObjectId);
         }
 
+        public async Task<bool> UpdateLastSave(string userId, long lastSave)
+        {
+            if (!ObjectId.TryParse(userId, out var userObjectId))
+            {
+                return false;
+            }
+            return await _roleRepository.UpdateLastSaved(lastSave, userObjectId);
+        }
+
+        public async Task<long> GetLastSaved(string userId)
+        {
+            if (!ObjectId.TryParse(userId, out var userObjectId))
+            {
+                throw new KeyNotFoundException("User not found");
+            }
+
+            return await _roleRepository.GetLastSaved(userObjectId);
+        }
     }
 }

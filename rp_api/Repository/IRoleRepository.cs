@@ -12,7 +12,9 @@ namespace rp_api.Repository
         Task<List<Role>> GetAllRolesByUserIdAsync(ObjectId userId);
         Task<List<Role>> GetNotRepliedRolesByUserIdAsync(ObjectId userId);
         Task<List<Role>> GetRepliedRolesByUserIdAsync(ObjectId userId);
+        Task<long> GetLastSaved(ObjectId userId);
         Task<bool> ToggleRoleStatusAsync(ObjectId userId, ObjectId roleId);
         Task<bool> ReplaceAllRolesAsync(string userId, List<Role> newRoles);
+        Task<bool> UpdateLastSaved(long lastSaved, ObjectId userId);
     }
 }

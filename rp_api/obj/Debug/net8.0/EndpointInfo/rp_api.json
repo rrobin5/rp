@@ -153,6 +153,28 @@
         }
       }
     },
+    "/api/Role/{userId}/last-saved": {
+      "get": {
+        "tags": [
+          "Role"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
     "/api/Role/{userId}": {
       "post": {
         "tags": [
@@ -213,26 +235,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "type": "array",
-                "items": {
-                  "$ref": "#/components/schemas/AllRolesRequest"
-                }
+                "$ref": "#/components/schemas/SaveAllRequest"
               }
             },
             "text/json": {
               "schema": {
-                "type": "array",
-                "items": {
-                  "$ref": "#/components/schemas/AllRolesRequest"
-                }
+                "$ref": "#/components/schemas/SaveAllRequest"
               }
             },
             "application/*+json": {
               "schema": {
-                "type": "array",
-                "items": {
-                  "$ref": "#/components/schemas/AllRolesRequest"
-                }
+                "$ref": "#/components/schemas/SaveAllRequest"
               }
             }
           }
@@ -416,7 +429,7 @@
   },
   "components": {
     "schemas": {
-      "AllRolesRequest": {
+      "CompleteRoleRequest": {
         "type": "object",
         "properties": {
           "id": {
@@ -563,6 +576,23 @@
             "$ref": "#/components/schemas/RoleStatus"
           },
           "timeStamp": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "additionalProperties": false
+      },
+      "SaveAllRequest": {
+        "type": "object",
+        "properties": {
+          "roles": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CompleteRoleRequest"
+            },
+            "nullable": true
+          },
+          "lastSaved": {
             "type": "integer",
             "format": "int64"
           }

@@ -157,5 +157,24 @@ namespace rp_api.Repository
             return updateResult.MatchedCount > 0;
         }
 
+        public async Task<bool> UpdateLastSaved(long lastSaved, ObjectId userId)
+        {
+            var filter = Builders<User>.Filter.Eq(u => u.Id, userId);
+            var update = Builders<User>.Update.Set(u => u.LastSave, lastSaved);
+
+            var updateResult = await _roles.UpdateOneAsync(filter, update);
+
+            return updateResult.ModifiedCount > 0;
+        }
+
+        public async Task<long> GetLastSaved(ObjectId userId)
+        {
+            long lastSaved = await _roles.
+                Find(u => u.Id == userId)
+                .Project(u => u.LastSave)
+                .FirstOrDefaultAsync();
+
+            return (lastSaved);
+        }
     }
 }
