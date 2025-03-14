@@ -3,6 +3,7 @@
     public enum RoleStatus
     {
         NotReplied = 0,
-        Replied = 1
+        Replied = 1,
+        Buried = 3
     }
 }

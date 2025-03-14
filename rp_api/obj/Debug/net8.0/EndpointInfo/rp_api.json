@@ -548,7 +548,8 @@
       "RoleStatus": {
         "enum": [
           0,
-          1
+          1,
+          3
         ],
         "type": "integer",
         "format": "int32"
