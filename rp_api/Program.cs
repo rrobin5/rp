@@ -52,8 +52,8 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidateAudience = true,
             ValidateLifetime = true,
             ValidateIssuerSigningKey = true,
-            ValidIssuer = jwtIssuer,  
-            ValidAudience = jwtAudience,  
+            ValidIssuer = jwtIssuer,
+            ValidAudience = jwtAudience,
             IssuerSigningKey = new Microsoft.IdentityModel.Tokens.SymmetricSecurityKey(
                 Encoding.UTF8.GetBytes(jwtSecretKey))
         };
@@ -75,7 +75,9 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 builder.Services.AddAuthorization(options =>
 {
     options.AddPolicy("UserIdPolicy", policy =>
-        policy.RequireClaim("id")); 
+        policy.RequireClaim("id"));
+    options.AddPolicy("UserNamePolicy", policy =>
+        policy.RequireClaim("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"));
 });
 
 builder.Services.AddAutoMapper(typeof(MappingProfile));
@@ -117,6 +119,8 @@ builder.Services.AddScoped<IRoleRepository, RoleMongoRepository>();
 builder.Services.AddScoped<IHelper, Helper>();
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddSingleton<IAuthorizationHandler, UserIdClaimHandler>();
+builder.Services.AddScoped<IMessageRepository, MessageMongoRepository>();
+builder.Services.AddScoped<IMessageService, MessageService>();
 
 var app = builder.Build();
 
