@@ -6,5 +6,6 @@ namespace rp_api.Service
     {
         Task CreateUser(UserRequest userRequest);
         Task<LoginResponse> Login(LoginRequest loginRequest);
+        Task<List<string>> GetAllUsernames();
     }
 }

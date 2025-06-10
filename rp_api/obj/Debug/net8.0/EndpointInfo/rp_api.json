@@ -132,6 +132,37 @@
         }
       }
     },
+    "/api/Message/mass-message": {
+      "post": {
+        "tags": [
+          "Message"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MassMessageRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MassMessageRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/MassMessageRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
     "/api/Message/{userId}/sent": {
       "get": {
         "tags": [
@@ -687,6 +718,24 @@
           "message": {
             "type": "string",
             "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "MassMessageRequest": {
+        "required": [
+          "content",
+          "senderUsername"
+        ],
+        "type": "object",
+        "properties": {
+          "senderUsername": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "content": {
+            "minLength": 1,
+            "type": "string"
           }
         },
         "additionalProperties": false

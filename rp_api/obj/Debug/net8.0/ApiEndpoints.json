@@ -156,6 +156,22 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "rp_api.Controllers.MessageController",
+    "Method": "SendMassMessage",
+    "RelativePath": "api/Message/mass-message",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "messageRequest",
+        "Type": "rp_api.DTO.MassMessageRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "rp_api.Controllers.ReviewController",
     "Method": "CreateReview",
     "RelativePath": "api/Review",

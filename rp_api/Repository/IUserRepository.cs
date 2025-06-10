@@ -7,5 +7,6 @@ namespace rp_api.Repository
         Task<User> FindUserByUsernameAsync(string username);
         Task CreateUserAsync(User user);
         Task<bool> UsernameExistsAsync(string username);
+        Task<List<string>> GetAllUsernames();
     }
 }

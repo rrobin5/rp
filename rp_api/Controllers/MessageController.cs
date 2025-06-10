@@ -27,6 +27,16 @@ namespace rp_api.Controllers
         }
 
         [Authorize(Policy = "UserNamePolicy")]
+        [HttpPost("mass-message")]
+        public async Task<IActionResult> SendMassMessage(MassMessageRequest messageRequest)
+        {
+            var userIdClaim = User.FindFirst("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")?.Value;
+            if (userIdClaim != "dita") throw new UnauthorizedAccessException();
+            await _messageService.SendMassMessage(messageRequest);
+            return Ok("Message sent successfully.");
+        }
+
+        [Authorize(Policy = "UserNamePolicy")]
         [HttpGet("{userId}")]
         public async Task<IActionResult> GetMessages(string username, int page = 0, int pageSize = 5)
         {

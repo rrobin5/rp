@@ -20,6 +20,7 @@ namespace rp_api.Mapper
             CreateMap<Message,  MessageResponse>();
             CreateMap<MessageRequest, Message>();
             CreateMap<MessageUpdateRequest, Message>();
+            CreateMap<MassMessageRequest, Message>();
         }
     }
 }

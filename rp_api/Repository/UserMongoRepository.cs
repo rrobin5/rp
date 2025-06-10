@@ -34,6 +34,15 @@ namespace rp_api.Repository
             return await _users.Find(u => u.Username == username).FirstOrDefaultAsync();
         }
 
+        public async Task<List<string>> GetAllUsernames()
+        {
+            var usernames = await _users.Find(_ => true)
+                                        .Project(u => u.Username)
+                                        .ToListAsync();
+            return usernames;
+        }
+
+
     }
 
 }

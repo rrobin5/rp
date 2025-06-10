@@ -36,6 +36,11 @@ namespace rp_api.Service
             await _userRepository.CreateUserAsync(user);
         }
 
+        public async Task<List<string>> GetAllUsernames()
+        {
+            return await _userRepository.GetAllUsernames();
+        }
+
         public async Task<LoginResponse> Login(LoginRequest loginRequest)
         {
             User user = await _userRepository.FindUserByUsernameAsync(loginRequest.Username);

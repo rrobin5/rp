@@ -57,5 +57,17 @@ namespace rp_api.Service
             Message message = _mapper.Map<Message>(messageRequest);
             await _messageRepository.SendMessage(message);
         }
+
+        public async Task SendMassMessage(MassMessageRequest messageRequest)
+        {
+            List<string> usernames = await _userRepository.GetAllUsernames();
+            foreach (string username in usernames)
+            {
+                Message message = _mapper.Map<Message>(messageRequest);
+                message.RecipientUsername = username;
+                message.DateTime = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+                await _messageRepository.SendMessage(message);
+            };
+        }
     }
 }

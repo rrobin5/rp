@@ -10,5 +10,6 @@ namespace rp_api.Service
         Task<List<MessageResponse>> GetSentMessages(string username, int page, int pageSize);
         Task<int> GetUnreadMessages(string username);
         Task MarkAsRead(string messageId);
+        Task SendMassMessage(MassMessageRequest messageRequest);
     }
 }
