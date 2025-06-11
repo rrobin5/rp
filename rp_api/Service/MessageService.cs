@@ -23,11 +23,12 @@ namespace rp_api.Service
             if (!await _userRepository.UsernameExistsAsync(username))
                 throw new KeyNotFoundException("Username not found");
             List<Message> messages = await _messageRepository.GetMessages(username, page, pageSize);
+
             List<MessageResponse> messageResponses = _mapper.Map<List<MessageResponse>>(messages);
 
             bool hasMore = messageResponses.Count > pageSize;
             if (hasMore)
-                messages.RemoveAt(messageResponses.Count - 1);
+                messageResponses.RemoveAt(messageResponses.Count - 1);
 
             return new PagedMessagesResponse
             {
@@ -45,7 +46,7 @@ namespace rp_api.Service
 
             bool hasMore = messageResponses.Count > pageSize;
             if (hasMore)
-                messages.RemoveAt(messageResponses.Count - 1);
+                messageResponses.RemoveAt(messageResponses.Count - 1);
 
             return new PagedMessagesResponse
             {
