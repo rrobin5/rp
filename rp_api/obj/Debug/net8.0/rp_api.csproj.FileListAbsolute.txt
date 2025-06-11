@@ -153,3 +153,6 @@ C:\Users\Adefinir\Documents\Rp\rp-back\rp_api\obj\Debug\net8.0\refint\rp_api.dll
 C:\Users\Adefinir\Documents\Rp\rp-back\rp_api\obj\Debug\net8.0\rp_api.pdb
 C:\Users\Adefinir\Documents\Rp\rp-back\rp_api\obj\Debug\net8.0\rp_api.genruntimeconfig.cache
 C:\Users\Adefinir\Documents\Rp\rp-back\rp_api\obj\Debug\net8.0\ref\rp_api.dll
+C:\Users\Adefinir\Documents\Rp\rp-back\rp_api\bin\Debug\net8.0\AngleSharp.dll
+C:\Users\Adefinir\Documents\Rp\rp-back\rp_api\bin\Debug\net8.0\AngleSharp.Css.dll
+C:\Users\Adefinir\Documents\Rp\rp-back\rp_api\bin\Debug\net8.0\HtmlSanitizer.dll

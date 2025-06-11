@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Ganss.Xss;
+using Microsoft.AspNetCore.Mvc;
 using rp_api.DTO;
 using rp_api.Service;
 
@@ -9,15 +10,18 @@ namespace rp_api.Controllers
     public class ReviewController : Controller
     {
         private readonly IReviewService _reviewService;
-
-        public ReviewController (IReviewService reviewService)
+        private readonly HtmlSanitizer _htmlSanitizer;
+        public ReviewController (IReviewService reviewService, HtmlSanitizer htmlSanitizer)
         {
             _reviewService = reviewService;
+            _htmlSanitizer = htmlSanitizer;
         }
 
         [HttpPost]
         public async Task<IActionResult> CreateReview(ReviewRequest reviewRequest)
         {
+            reviewRequest.UserId = _htmlSanitizer.Sanitize(reviewRequest.UserId);
+            reviewRequest.Message = _htmlSanitizer.Sanitize(reviewRequest.Message);
             await _reviewService.CreateReview(reviewRequest);
             return Ok("Message created successfully.");
         }

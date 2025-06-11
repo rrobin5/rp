@@ -1,4 +1,5 @@
 ﻿
+using Ganss.Xss;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using rp_api.DTO;
@@ -11,10 +12,12 @@ namespace rp_api.Controllers
     public class RoleController : Controller
     {
         private readonly IRoleService _roleService;
+        private readonly HtmlSanitizer _htmlSanitizer;
 
-        public RoleController(IRoleService roleService)
+        public RoleController(IRoleService roleService, HtmlSanitizer htmlSanitizer)
         {
             _roleService = roleService;
+            _htmlSanitizer = htmlSanitizer;
         }
 
         [Authorize(Policy = "UserIdPolicy")]
@@ -78,6 +81,11 @@ namespace rp_api.Controllers
             var userIdClaim = User.FindFirst("id")?.Value;
             if (userIdClaim != userId) throw new UnauthorizedAccessException();
 
+            roleRequest.Title = _htmlSanitizer.Sanitize(roleRequest.Title);
+            roleRequest.Characters = _htmlSanitizer.Sanitize(roleRequest.Characters);
+            roleRequest.Partner = _htmlSanitizer.Sanitize(roleRequest.Partner);
+            roleRequest.Link = _htmlSanitizer.Sanitize(roleRequest.Link);
+
             bool success = await _roleService.AddRole(userId, roleRequest);
 
             if (success) return Ok("Rol added successfully.");
@@ -91,6 +99,15 @@ namespace rp_api.Controllers
         {
             var userIdClaim = User.FindFirst("id")?.Value;
             if (userIdClaim != userId) throw new UnauthorizedAccessException();
+
+            foreach(CompleteRoleRequest roleRequest in saveAllRequest.Roles)
+            {
+                roleRequest.Id = _htmlSanitizer.Sanitize(roleRequest.Id);
+                roleRequest.Title = _htmlSanitizer.Sanitize(roleRequest.Title);
+                roleRequest.Characters = _htmlSanitizer.Sanitize(roleRequest.Characters);
+                roleRequest.Partner = _htmlSanitizer.Sanitize(roleRequest.Partner);
+                roleRequest.Link = _htmlSanitizer.Sanitize(roleRequest.Link);
+            };
 
             bool saveSuccess = await _roleService.SaveAllRoles(userId, saveAllRequest.Roles);
             bool lastSaveSuccess = await _roleService.UpdateLastSave(userId, saveAllRequest.LastSaved);
@@ -107,6 +124,12 @@ namespace rp_api.Controllers
             var userIdClaim = User.FindFirst("id")?.Value;
             if (userIdClaim != userId) throw new UnauthorizedAccessException();
 
+            roleId = _htmlSanitizer.Sanitize(roleId);
+            roleUpdateRequest.Title = _htmlSanitizer.Sanitize(roleUpdateRequest.Title);
+            roleUpdateRequest.Characters = _htmlSanitizer.Sanitize(roleUpdateRequest.Characters);
+            roleUpdateRequest.Partner = _htmlSanitizer.Sanitize(roleUpdateRequest.Partner);
+            roleUpdateRequest.Link = _htmlSanitizer.Sanitize(roleUpdateRequest.Link);
+
             bool success = await _roleService.UpdateRole(roleUpdateRequest, roleId, userId);
 
             if (success)return Ok("Rol updated successfully.");
@@ -121,6 +144,9 @@ namespace rp_api.Controllers
             var userIdClaim = User.FindFirst("id")?.Value;
             if (userIdClaim != userId) throw new UnauthorizedAccessException();
 
+            roleId = _htmlSanitizer.Sanitize(roleId);
+            userId = _htmlSanitizer.Sanitize(userId);
+
             bool success = await _roleService.RemoveRole(userId, roleId);
 
             if (success) return Ok("Rol removed successfully.");
@@ -134,6 +160,9 @@ namespace rp_api.Controllers
         {
             var userIdClaim = User.FindFirst("id")?.Value;
             if (userIdClaim != userId) throw new UnauthorizedAccessException();
+
+            roleId = _htmlSanitizer.Sanitize(roleId);
+            userId = _htmlSanitizer.Sanitize(userId);
 
             var success = await _roleService.ToggleRoleStatus(userId, roleId);
             if (!success) return NotFound(new { message = "User or rol not found." });

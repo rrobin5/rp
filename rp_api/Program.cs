@@ -1,3 +1,4 @@
+using Ganss.Xss;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Options;
@@ -121,6 +122,7 @@ builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddSingleton<IAuthorizationHandler, UserIdClaimHandler>();
 builder.Services.AddScoped<IMessageRepository, MessageMongoRepository>();
 builder.Services.AddScoped<IMessageService, MessageService>();
+builder.Services.AddSingleton<HtmlSanitizer>();
 
 var app = builder.Build();
 
