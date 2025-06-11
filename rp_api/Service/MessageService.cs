@@ -18,22 +18,40 @@ namespace rp_api.Service
             _mapper = mapper;
             _userRepository = userRepository;
         }
-        public async Task<List<MessageResponse>> GetMessages(string username, int page, int pageSize)
+        public async Task<PagedMessagesResponse> GetMessages(string username, int page, int pageSize)
         {
             if (!await _userRepository.UsernameExistsAsync(username))
                 throw new KeyNotFoundException("Username not found");
             List<Message> messages = await _messageRepository.GetMessages(username, page, pageSize);
             List<MessageResponse> messageResponses = _mapper.Map<List<MessageResponse>>(messages);
-            return messageResponses;
+
+            bool hasMore = messageResponses.Count > pageSize;
+            if (hasMore)
+                messages.RemoveAt(messageResponses.Count - 1);
+
+            return new PagedMessagesResponse
+            {
+                Messages = messageResponses,
+                HasMore = hasMore
+            };
         }
 
-        public async Task<List<MessageResponse>> GetSentMessages(string username, int page, int pageSize)
+        public async Task<PagedMessagesResponse> GetSentMessages(string username, int page, int pageSize)
         {
             if (!await _userRepository.UsernameExistsAsync(username))
                 throw new KeyNotFoundException("Username not found");
             List <Message> messages = await _messageRepository.GetSentMessages(username, page, pageSize);
             List<MessageResponse> messageResponses = _mapper.Map<List<MessageResponse>>(messages);
-            return messageResponses;
+
+            bool hasMore = messageResponses.Count > pageSize;
+            if (hasMore)
+                messages.RemoveAt(messageResponses.Count - 1);
+
+            return new PagedMessagesResponse
+            {
+                Messages = messageResponses,
+                HasMore = hasMore
+            };
         }
 
         public async Task<int> GetUnreadMessages(string username)

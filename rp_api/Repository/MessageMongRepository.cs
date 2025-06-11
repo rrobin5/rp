@@ -23,7 +23,7 @@ namespace rp_api.Repository
             var messages = await _messages.Find(filter)
                 .SortByDescending(m => m.DateTime)
                 .Skip(page * pageSize)
-                .Limit(pageSize)
+                .Limit(pageSize + 1)
                 .ToListAsync();
 
             return messages;
@@ -36,7 +36,7 @@ namespace rp_api.Repository
             var messages = await _messages.Find(filter)
                 .SortByDescending(m => m.DateTime)
                 .Skip(page * pageSize)
-                .Limit(pageSize)
+                .Limit(pageSize + 1)
                 .ToListAsync();
 
             return messages;

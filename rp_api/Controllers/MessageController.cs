@@ -52,7 +52,7 @@ namespace rp_api.Controllers
         {
             var userIdClaim = User.FindFirst("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")?.Value;
             if (userIdClaim != username) throw new UnauthorizedAccessException();
-            List<MessageResponse> messages = await _messageService.GetMessages(username, page, pageSize);
+            PagedMessagesResponse messages = await _messageService.GetMessages(username, page, pageSize);
             return Ok(messages);
         }
 
@@ -62,7 +62,7 @@ namespace rp_api.Controllers
         {
             var userIdClaim = User.FindFirst("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")?.Value;
             if (userIdClaim != username) throw new UnauthorizedAccessException();
-            List<MessageResponse> messages = await _messageService.GetSentMessages(username, page, pageSize);
+            PagedMessagesResponse messages = await _messageService.GetSentMessages(username, page, pageSize);
             return Ok(messages);
         }
 
